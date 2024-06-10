@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""the module for the Session Authorization protocol"""
+"""
+Define SessionExpAuth class
+"""
 import os
 from datetime import (
     datetime,
@@ -11,12 +13,12 @@ from .session_auth import SessionAuth
 
 class SessionExpAuth(SessionAuth):
     """
-    SessionExpAuth class
-    perfroms session expiration
+    Definition of class SessionExpAuth that adds an
+    expiration date to a Session ID
     """
     def __init__(self):
         """
-        initializes the SessionExpAuth class
+        Initialize the class
         """
         try:
             duration = int(os.getenv('SESSION_DURATION'))
@@ -26,8 +28,8 @@ class SessionExpAuth(SessionAuth):
 
     def create_session(self, user_id=None):
         """
-        makes a session
-        arguments:
+        Create a Session ID for a user_id
+        Args:
             user_id (str): user id
         """
         session_id = super().create_session(user_id)
@@ -42,11 +44,11 @@ class SessionExpAuth(SessionAuth):
 
     def user_id_for_session_id(self, session_id=None):
         """
-        returns the ID of a user based on a session ID
-        arguments:
+        Returns a user ID based on a session ID
+        Args:
             session_id (str): session ID
-        returns:
-            user ID
+        Return:
+            user id or None if session_id is None or not a string
         """
         if session_id is None:
             return None
